@@ -1,4 +1,16 @@
 
+function jhwAlphaSortKeyAsc(data, key, asc = true) {
+	return data.sort(function(a,b) {
+		var cs = (asc ? 1 : -1);
+		var ca = a[key].toLowerCase();
+		var cb = b[key].toLowerCase();
+		if (ca === cb) {
+			return 0;
+		} else {
+			return (ca > cb ? cs : -cs);
+		}
+	});
+}
 
 function jhwEscapeHTML(html) {
     return document.createElement('div').appendChild(document.createTextNode(html)).parentNode.innerHTML;
@@ -46,6 +58,10 @@ function jhwSetupAvailabilityGraph() {
 }
 
 function jhwLoadContracts(data) {
+	// sort by name
+	data = jhwAlphaSortKeyAsc(data, "contract_name");
+
+	// load into select
 	var avail_contracts = $('#availability_contract');
 	avail_contracts.empty();
 	for (var i = 0; i < data.length; i++) {
