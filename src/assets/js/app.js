@@ -1,4 +1,9 @@
 
+
+function jhwEscapeHTML(html) {
+    return document.createElement('div').appendChild(document.createTextNode(html)).parentNode.innerHTML;
+}
+
 function jhwSetupAvailabilityGraph() {
 	var ctx = document.getElementById("graph_availability");
 	var opts = {
@@ -40,7 +45,41 @@ function jhwSetupAvailabilityGraph() {
 	var gAvail = new Chart(ctx, opts);
 }
 
+function jhwLoadContracts(data) {
+	var avail_contracts = $('#availability_contract');
+	avail_contracts.empty();
+	for (var i = 0; i < data.length; i++) {
+		var contract = data[i];
+		contract.commercial_name = jhwEscapeHTML(contract.commercial_name);
+		contract.contract_name = jhwEscapeHTML(contract.contract_name);
+		avail_contracts.append(
+			'<option value="'
+			+ contract.contract_id
+			+ '">'
+			+ contract.contract_name
+			+ ' / '
+			+ contract.commercial_name
+			+ '</option>');
+	}
+}
+
+function jhwGetContracts(successCallback) {
+	var base_url = $(document).data("jha_base_url");
+
+	var contracts = $.getJSON(
+		base_url + "/contracts",
+		successCallback
+	);
+}
+
 function jhwSetup() {
+	$(document).data(
+		"jha_base_url",
+		"https://nipil.org/jcdecaux_history_api"
+	);
+
+	jhwGetContracts(jhwLoadContracts);
+
 	$("#graph_availability").ready(jhwSetupAvailabilityGraph);
 }
 
