@@ -57,6 +57,58 @@ function jhwSetupAvailabilityGraph() {
 	var gAvail = new Chart(ctx, opts);
 }
 
+function jhwChangeStations(event) {
+	console.log(event);
+	return false;
+}
+
+function jhwLoadStations(data) {
+	// sort by name
+	data = jhwAlphaSortKeyAsc(data, "station_name");
+
+	// Load stations into select
+	var avail_stations = $('#availability_station');
+	avail_stations.empty();
+	for (var i = 0; i < data.length; i++) {
+		var station = data[i];
+		station.station_name = jhwEscapeHTML(station.station_name);
+		station.address = jhwEscapeHTML(station.address);
+		avail_stations.append(
+			'<option value="'
+			+ station.station_number
+			+ '">'
+			+ station.station_name
+			+ ' / '
+			+ station.address
+			+ '</option>');
+	}
+
+	// trigger a station change to load graph
+	avail_stations.change();
+}
+
+function jhwGetStations(contract_id, successCallback) {
+	var base_url = $(document).data("jha_base_url");
+
+	var stations = $.getJSON(
+		base_url
+		+ "/contracts/"
+		+ contract_id
+		+ "/stations",
+		jhwLoadStations
+	);
+}
+
+function jhwChangeContracts(event) {
+	var select = $(this);
+	var selected = $(this).find("option:selected");
+	if (selected.length > 0) {
+		var contract_id = selected.attr("value");
+		jhwGetStations(contract_id);
+	}
+	return false;
+}
+
 function jhwLoadContracts(data) {
 	// sort by name
 	data = jhwAlphaSortKeyAsc(data, "contract_name");
@@ -77,6 +129,9 @@ function jhwLoadContracts(data) {
 			+ contract.commercial_name
 			+ '</option>');
 	}
+
+	// trigger a contract change to load stations
+	avail_contracts.change();
 }
 
 function jhwGetContracts(successCallback) {
@@ -95,6 +150,9 @@ function jhwSetup() {
 	);
 
 	jhwGetContracts(jhwLoadContracts);
+
+	$('#availability_contract').change(jhwChangeContracts);
+	$('#availability_station').change(jhwChangeStations);
 
 	$("#graph_availability").ready(jhwSetupAvailabilityGraph);
 }
