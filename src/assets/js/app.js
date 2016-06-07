@@ -57,8 +57,27 @@ function jhwSetupAvailabilityGraph() {
 	var gAvail = new Chart(ctx, opts);
 }
 
+function jhwLoadAvailabilityGraph(contract_id, station_number) {
+	console.log("jhwLoadAvailabilityGraph", contract_id, station_number);
+}
+
+function jhwGetSelectedStation() {
+	var selectStation = $("#availability_station");
+	var selectedStation = selectStation.find("option:selected");
+	if (selectedStation.length > 0) {
+		return selectedStation.attr("value");
+	} else {
+		return null;
+	}
+}
+
 function jhwChangeStations(event) {
-	console.log(event);
+	var contract_id = jhwGetSelectedContract();
+	var station_number = jhwGetSelectedStation();
+	if (contract_id !== null && station_number !== null) {
+		Cookies.set('last_station_number', station_number);
+		jhwLoadAvailabilityGraph(contract_id, station_number);
+	}
 	return false;
 }
 
@@ -66,14 +85,20 @@ function jhwLoadStations(data) {
 	// sort by name
 	data = jhwAlphaSortKeyAsc(data, "station_name");
 
+	// select prefered station from cookie info
+	var last_station_number_id = Cookies.get('last_station_number');
+
 	// Load stations into select
 	var avail_stations = $('#availability_station');
 	avail_stations.empty();
 	for (var i = 0; i < data.length; i++) {
 		var station = data[i];
+		// sanitize input
+		station.station_number = jhwEscapeHTML(station.station_number);
 		station.station_name = jhwEscapeHTML(station.station_name);
 		station.address = jhwEscapeHTML(station.address);
-		avail_stations.append(
+		// create element
+		var option = $(
 			'<option value="'
 			+ station.station_number
 			+ '">'
@@ -81,6 +106,12 @@ function jhwLoadStations(data) {
 			+ ' / '
 			+ station.address
 			+ '</option>');
+		// setup based on cookie
+		if (station.station_number === last_station_number_id) {
+			option.prop("defaultSelected", true);
+		}
+		// append to select
+		avail_stations.append(option);
 	}
 
 	// trigger a station change to load graph
@@ -95,16 +126,25 @@ function jhwGetStations(contract_id, successCallback) {
 		+ "/contracts/"
 		+ contract_id
 		+ "/stations",
-		jhwLoadStations
+		successCallback
 	);
 }
 
+function jhwGetSelectedContract() {
+	var selectContract = $("#availability_contract");
+	var selectedContract = selectContract.find("option:selected");
+	if (selectedContract.length > 0) {
+		return selectedContract.attr("value");
+	} else {
+		return null;
+	}
+}
+
 function jhwChangeContracts(event) {
-	var select = $(this);
-	var selected = $(this).find("option:selected");
-	if (selected.length > 0) {
-		var contract_id = selected.attr("value");
-		jhwGetStations(contract_id);
+	var contract_id = jhwGetSelectedContract();
+	if (contract_id !== null) {
+		Cookies.set('last_contract_id', contract_id);
+		jhwGetStations(contract_id, jhwLoadStations);
 	}
 	return false;
 }
@@ -113,14 +153,20 @@ function jhwLoadContracts(data) {
 	// sort by name
 	data = jhwAlphaSortKeyAsc(data, "contract_name");
 
+	// select prefered contract from cookie info
+	var last_contract_id = Cookies.get('last_contract_id');
+
 	// load into select
 	var avail_contracts = $('#availability_contract');
 	avail_contracts.empty();
 	for (var i = 0; i < data.length; i++) {
 		var contract = data[i];
+		// sanitize input
+		contract.contract_id = jhwEscapeHTML(contract.contract_id);
 		contract.commercial_name = jhwEscapeHTML(contract.commercial_name);
 		contract.contract_name = jhwEscapeHTML(contract.contract_name);
-		avail_contracts.append(
+		// create element
+		var option = $(
 			'<option value="'
 			+ contract.contract_id
 			+ '">'
@@ -128,15 +174,20 @@ function jhwLoadContracts(data) {
 			+ ' / '
 			+ contract.commercial_name
 			+ '</option>');
+		// setup based on cookie
+		if (contract.contract_id === last_contract_id) {
+			option.prop("defaultSelected", true);
+		}
+		// append to select
+		avail_contracts.append(option);
 	}
 
-	// trigger a contract change to load stations
+	// notify to force-load stations
 	avail_contracts.change();
 }
 
 function jhwGetContracts(successCallback) {
 	var base_url = $(document).data("jha_base_url");
-
 	var contracts = $.getJSON(
 		base_url + "/contracts",
 		successCallback
