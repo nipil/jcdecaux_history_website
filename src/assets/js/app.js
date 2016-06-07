@@ -194,11 +194,25 @@ function jhwGetContracts(successCallback) {
 	);
 }
 
+function jhwInitDatePicker() {
+	var picker = $('#date_picker');
+	var now = moment.utc().format("YYYY-MM-DD");
+	picker.fdatepicker({
+		initialDate: now,
+		language: 'fr',
+		weekStart: 1,
+		format: 'yyyy-mm-dd',
+		disableDblClickSelection: true
+	});
+}
+
 function jhwSetup() {
 	$(document).data(
 		"jha_base_url",
 		"https://nipil.org/jcdecaux_history_api"
 	);
+
+	jhwInitDatePicker();
 
 	jhwGetContracts(jhwLoadContracts);
 
