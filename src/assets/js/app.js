@@ -57,8 +57,27 @@ function jhwSetupAvailabilityGraph() {
 	var gAvail = new Chart(ctx, opts);
 }
 
-function jhwLoadAvailabilityGraph(contract_id, station_number) {
-	console.log("jhwLoadAvailabilityGraph", contract_id, station_number);
+function jhwLoadAvailabilityGraph(contract_id, station_number, date) {
+	if (contract_id === null) {
+		contract_id = jhwGetSelectedContract();
+	}
+	if (station_number === null) {
+		station_number = jhwGetSelectedStation();
+	}
+	if (date == null) {
+		date = jhwGetSelectedDate();
+	}
+	console.log("jhwLoadAvailabilityGraph after", contract_id, station_number, date);
+}
+
+function jhwGetSelectedDate() {
+	return $("#date_picker").val();
+}
+
+function jhwChangeDate() {
+	var date = jhwGetSelectedDate();
+	jhwLoadAvailabilityGraph(null, null, date);
+	return false;
 }
 
 function jhwGetSelectedStation() {
@@ -226,6 +245,7 @@ function jhwSetup() {
 
 	$('#availability_contract').change(jhwChangeContracts);
 	$('#availability_station').change(jhwChangeStations);
+	$('#date_picker').change(jhwChangeDate);
 
 	$("#graph_availability").ready(jhwSetupAvailabilityGraph);
 }
