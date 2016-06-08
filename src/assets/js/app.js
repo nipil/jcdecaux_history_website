@@ -75,7 +75,11 @@ function jhwChangeStations(event) {
 	var contract_id = jhwGetSelectedContract();
 	var station_number = jhwGetSelectedStation();
 	if (contract_id !== null && station_number !== null) {
-		Cookies.set('last_station_number', station_number);
+		Cookies.set(
+			'last_station_number',
+			station_number,
+			{ expires: 365 }
+		);
 		jhwLoadAvailabilityGraph(contract_id, station_number);
 	}
 	return false;
@@ -143,7 +147,11 @@ function jhwGetSelectedContract() {
 function jhwChangeContracts(event) {
 	var contract_id = jhwGetSelectedContract();
 	if (contract_id !== null) {
-		Cookies.set('last_contract_id', contract_id);
+		Cookies.set(
+			'last_contract_id',
+			contract_id,
+			{ expires: 365 }
+		);
 		jhwGetStations(contract_id, jhwLoadStations);
 	}
 	return false;
