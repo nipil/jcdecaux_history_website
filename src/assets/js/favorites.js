@@ -1,0 +1,208 @@
+function jhwFavoritesUpdateGraph() {
+	console.log("jhwFavoritesUpdateGraph", window.jhwFavoritesConfig);
+}
+
+function jhwFavoritesRemoveStation(element) {
+	console.log("jhwFavoritesRemoveStation", element);
+}
+
+function jhwFavoritesAddStation(table, contract_id, station_number, contract_text = null, station_text = null) {
+	var tbody = table.find('tbody');
+	// skip when invalid (example: when page is loading)
+	if (contract_id == null || station_number == null) {
+		return false;
+	}
+	// filter duplicates
+	var sameStations = tbody.find("i[contract_id='"
+		+ contract_id
+		+ "'][station_number='"
+		+ station_number
+		+ "']");
+	if (sameStations.length > 0) {
+		return false;
+	}
+	// create element
+	var row = $(
+		"<tr><td>C"
+		+ contract_id
+		+ "-S"
+		+ station_number
+		+ "</td><td contract_text>"
+		+ (contract_text == null ? "Chargement..." : contract_text)
+		+ "</td><td station_text>"
+		+ (station_text == null ? "Chargement..." : station_text)
+		+ "</td><td><i class='fi-x' contract_id='"
+		+ contract_id
+		+ "' station_number='"
+		+ station_number
+		+ "'></i></td></tr>"
+	);
+	// lazy load missing data
+	if (contract_text == null) {
+		jhaGetContract(contract_id).done(
+			function(data, textStatus, jqXHR) {
+				row.find('td[contract_text]').text(
+					jhwContractText(jhwSanitizeContract(data))
+				);
+			}
+		);
+	}
+	if (station_text == null) {
+		jhaGetStation(contract_id, station_number).done(
+			function(data, textStatus, jqXHR) {
+				row.find('td[station_text]').text(
+					jhwStationText(jhwSanitizeStation(data))
+				);
+			}
+		);
+	}
+	// add new station
+	tbody.append(row);
+	// something was added
+	return true;
+}
+
+function jhwFavoritesSaveStations(table) {
+	var tbody = table.find('tbody');
+	// set favorite stations cookie
+	var favorites = {};
+	tbody.find("i").each(function(index, element) {
+		var element = $(element);
+		var contract_id = element.attr("contract_id");
+		var station_number = element.attr("station_number");
+		var contract = null;
+		if (!favorites.hasOwnProperty(contract_id)) {
+			favorites[contract_id] = [];
+		}
+		contract = favorites[contract_id];
+		contract.push(station_number);
+	});
+	var favorites_stations_cookie = JSON.stringify(favorites);
+	// console.log("favorites_stations_cookie", favorites_stations_cookie);
+	Cookies.set(
+		'favorites_stations',
+		favorites_stations_cookie,
+		{
+			expires: 365
+		}
+	);
+}
+
+function jhwLoadFavoriteStations(table, preferred) {
+	for (var contract_id in preferred) {
+		var stations = preferred[contract_id];
+		for (var i in stations) {
+			var station_number = stations[i];
+			jhwFavoritesAddStation(table, contract_id, station_number);
+		}
+	}
+}
+
+function jhwSetupFavoritesGraph() {
+	// init api
+	jhaSetApiUrl();
+
+	// default selection
+	window.jhwFavoritesConfig = {
+		date: moment.utc().format("YYYY-MM-DD"),
+		preferred: Cookies.get('favorites_stations'),
+	}
+
+	// init availability graph config
+	window.jhwFavoritesGraphConfig = {
+		type: 'line',
+		data: {
+			labels: [], // Date Objects
+			datasets: []
+		},
+		options: {
+			responsive: true,
+			// maintainAspectRatio: false,
+			title: {
+				display:false,
+			},
+			scales: {
+				xAxes: [{
+					type: "time",
+					time: {
+						format: 'YYYY-MM-DD HH:mm',
+						unit: "hour",
+						displayFormats: {
+							hour: 'HH:mm'
+						},
+						tooltipFormat: 'HH:mm',
+					},
+				}, ],
+				yAxes: [{
+					scaleLabel: {
+						display: false,
+					},
+					ticks: {
+						beginAtZero: true,
+					}
+				}]
+			},
+		}
+	};
+
+	// create availability graph
+	window.jhwFavoritesGraph = new Chart(
+		$('#graph_favorites'),
+		window.jhwFavoritesGraphConfig
+	);
+
+	// init selection components
+	jhwSelectContractStationSetup(
+		$('#select_contract'),
+		$('#select_station'),
+		function (contract_id, station_number) {
+			window.jhwFavoritesConfig.contract_id = contract_id;
+			window.jhwFavoritesConfig.station_number = station_number;
+		}
+	);
+
+	// init date navigation component
+	jhwDateNavSetup(
+		$('#date_picker'),
+		$('#date_prev'),
+		$('#date_next'),
+		function (date) {
+			if (date != window.jhwFavoritesConfig.date) {
+				// memorize new date
+				window.jhwFavoritesConfig.date = date;
+				// clear graph
+				window.jhwFavoritesGraphConfig.data.labels.length = 0;
+				window.jhwFavoritesGraphConfig.data.datasets.length = 0;
+				// update graph
+				jhwFavoritesUpdateGraph();
+			}
+		},
+		window.jhwFavoritesConfig.date
+	);
+
+	// init add station component
+	$('#add_button').click(function(event) {
+		var result = jhwFavoritesAddStation(
+			$('#favorite_stations'),
+			window.jhwFavoritesConfig.contract_id,
+			window.jhwFavoritesConfig.station_number,
+			$.trim($('#select_contract option[value="' + window.jhwFavoritesConfig.contract_id + '"]').text()),
+			$.trim($('#select_station option[value="' + window.jhwFavoritesConfig.station_number + '"]').text())
+		);
+		if (result) {
+			jhwFavoritesSaveStations($('#favorite_stations'));
+			jhwFavoritesUpdateGraph();
+		}
+	});
+
+	// init favorite stations
+	if (window.jhwFavoritesConfig.preferred != null) {
+		jhwLoadFavoriteStations(
+			$('#favorite_stations'),
+			JSON.parse(window.jhwFavoritesConfig.preferred)
+		);
+	}
+
+	// init foundation components
+	$(document).foundation();
+}

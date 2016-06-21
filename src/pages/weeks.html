@@ -1,0 +1,63 @@
+
+<style media="screen" type="text/css">
+.select2-container {
+    margin-bottom: 1rem;
+}
+</style>
+
+<div class="row">
+    <div class="small-4 columns">
+        <label>Contrat
+            <select id="select_contract" style="width: 100%">
+            </select>
+        </label>
+    </div>
+    <div class="small-8 columns">
+        <label>Station
+            <select id="select_station" style="width: 100%">
+            </select>
+        </label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="small-6 columns">
+        <div class="expanded button-group" >
+            <a class="button" dayofweek="1">Lun</a>
+            <a class="button" dayofweek="2">Mar</a>
+            <a class="button" dayofweek="3">Mer</a>
+            <a class="button" dayofweek="4">Jeu</a>
+            <a class="button" dayofweek="5">Ven</a>
+        </div>
+    </div>
+    <div class="small-6 columns">
+        <div class="row">
+            <div class="small-6 columns">
+                <div class="secondary expanded button-group">
+                    <a class="button" dayofweek="6">Sam</a>
+                    <a class="button" dayofweek="0">Dim</a>
+                </div>
+            </div>
+            <div class="small-6 columns">
+                <div class="expanded button-group">
+                    <a class="button" weekmod="+1">
+                        <i class="fi-plus"></i>
+                    </a>
+                    <a class="button" weekmod="-1">
+                        <i class="fi-minus"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="small-12 columns">
+        <canvas id="graph_availability"></canvas>
+    </div>
+</div>
+
+<script type="text/javascript" src="{{root}}assets/js/weeks.js"></script>
+
+<script>jhwSetupAvailabilityGraph();</script>
