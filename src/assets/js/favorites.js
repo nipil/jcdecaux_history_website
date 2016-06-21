@@ -202,7 +202,4 @@ function jhwSetupFavoritesGraph() {
 			JSON.parse(window.jhwFavoritesConfig.preferred)
 		);
 	}
-
-	// init foundation components
-	$(document).foundation();
 }

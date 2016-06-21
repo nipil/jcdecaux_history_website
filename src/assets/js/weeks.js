@@ -185,7 +185,4 @@ function jhwSetupAvailabilityGraph() {
 			jhwAvailabilityUpdate();
 		}
 	);
-
-	// init foundation components
-	$(document).foundation();
 }
