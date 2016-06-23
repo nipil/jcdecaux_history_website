@@ -1,6 +1,29 @@
 
 function jhwDrawFavoritesGraph(graph_index, graph_label, api_data) {
 	console.log("jhwDrawFavoritesGraph", graph_index, graph_label, api_data.length)
+	// prepare dataset
+	var hue = jhwGetHue(graph_index);
+	var dataset = {
+		label: graph_label,
+		data: [],
+		fill: false,
+		lineTension: 0,
+		borderColor: jhwHslColor(hue, 1),
+		backgroundColor: jhwHslColor(hue, 0.3),
+		borderWidth: 1,
+		pointHitRadius: 5,
+	};
+	// populate dataset
+	for (var i = 0; i < api_data.length; i++) {
+		var ts_moment = moment.unix(api_data[i].timestamp);
+		window.jhwFavoritesGraphConfig.data.labels.push(ts_moment.toDate());
+		dataset.data.push({
+			x: ts_moment.format('YYYY-MM-DD HH:mm'),
+			y: api_data[i].available_bikes
+		});
+	}
+	window.jhwFavoritesGraphConfig.data.datasets.push(dataset);
+	window.jhwFavoritesGraph.update();
 }
 
 function jhwFavoritesUpdateGraph() {
