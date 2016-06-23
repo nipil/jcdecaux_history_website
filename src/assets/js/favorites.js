@@ -1,9 +1,9 @@
-function jhwFavoritesUpdateGraph() {
-	console.log("jhwFavoritesUpdateGraph", window.jhwFavoritesConfig);
+
+function jhwFavoritesUpdateAsync() {
 }
 
-function jhwFavoritesRemoveStation(element) {
-	console.log("jhwFavoritesRemoveStation", element);
+function jhwFavoritesUpdateGraph() {
+	console.log("jhwFavoritesUpdateGraph", window.jhwFavoritesConfig);
 }
 
 function jhwFavoritesAddStation(table, contract_id, station_number, contract_text = null, station_text = null) {
@@ -37,6 +37,12 @@ function jhwFavoritesAddStation(table, contract_id, station_number, contract_tex
 		+ station_number
 		+ "'></i></td></tr>"
 	);
+	// add suppression handler
+	row.find("i").click(function(event) {
+		row.remove();
+		jhwFavoritesSaveStations(table);
+		jhwFavoritesUpdateGraph();
+	})
 	// lazy load missing data
 	if (contract_text == null) {
 		jhaGetContract(contract_id).done(
