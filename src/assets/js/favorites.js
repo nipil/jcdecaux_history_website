@@ -1,6 +1,5 @@
 
 function jhwDrawFavoritesGraph(graph_index, graph_label, api_data) {
-	console.log("jhwDrawFavoritesGraph", graph_index, graph_label, api_data.length)
 	// prepare dataset
 	var hue = jhwGetHue(graph_index);
 	var dataset = {
@@ -27,12 +26,19 @@ function jhwDrawFavoritesGraph(graph_index, graph_label, api_data) {
 }
 
 function jhwFavoritesUpdateGraph() {
-	console.log("jhwFavoritesUpdateGraph", window.jhwFavoritesConfig);
 	$('#favorite_stations i').each(function (i, element) {
 		element = $(element);
 		var contract_id = element.attr("contract_id");
 		var station_number = element.attr("station_number");
 		var label = "C" + contract_id + "-S" + station_number;
+		// check that the label is not already present
+		for (var j = 0; j < window.jhwFavoritesGraphConfig.data.datasets.length; j++) {
+			var dataset = window.jhwFavoritesGraphConfig.data.datasets[j];
+			if (dataset.label === label) {
+				return;
+			}
+		}
+		// otherwise, load it
 		jhaGetSamples(
 			window.jhwFavoritesConfig.date,
 			contract_id,
