@@ -3,7 +3,7 @@ function jhwDrawFavoritesGraph(graph_index, graph_label, api_data) {
 	// prepare dataset
 	var hue = jhwGetHue(graph_index);
 	var dataset = {
-		label: graph_label,
+		label: graph_label.text(),
 		data: [],
 		fill: false,
 		lineTension: 0,
@@ -12,6 +12,8 @@ function jhwDrawFavoritesGraph(graph_index, graph_label, api_data) {
 		borderWidth: 1,
 		pointHitRadius: 5,
 	};
+	// set table color
+	graph_label.attr("style", "background-color: " + jhwHslColor(hue, 0.3));
 	// populate dataset
 	for (var i = 0; i < api_data.length; i++) {
 		var ts_moment = moment.unix(api_data[i].timestamp);
@@ -26,15 +28,16 @@ function jhwDrawFavoritesGraph(graph_index, graph_label, api_data) {
 }
 
 function jhwFavoritesUpdateGraph() {
-	$('#favorite_stations i').each(function (i, element) {
-		element = $(element);
-		var contract_id = element.attr("contract_id");
-		var station_number = element.attr("station_number");
-		var label = "C" + contract_id + "-S" + station_number;
+	$('#favorite_stations tr').each(function (i, tr_element) {
+		tr_element = $(tr_element);
+		i_element = tr_element.find("i");
+		var contract_id = i_element.attr("contract_id");
+		var station_number = i_element.attr("station_number");
+		var label = tr_element.find("td:first-of-type");
 		// check that the label is not already present
 		for (var j = 0; j < window.jhwFavoritesGraphConfig.data.datasets.length; j++) {
 			var dataset = window.jhwFavoritesGraphConfig.data.datasets[j];
-			if (dataset.label === label) {
+			if (dataset.label === label.text()) {
 				return;
 			}
 		}
