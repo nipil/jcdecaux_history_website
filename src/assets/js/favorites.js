@@ -1,9 +1,31 @@
 
-function jhwFavoritesUpdateAsync() {
+function jhwDrawFavoritesGraph(graph_index, graph_label, api_data) {
+	console.log("jhwDrawFavoritesGraph", graph_index, graph_label, api_data.length)
 }
 
 function jhwFavoritesUpdateGraph() {
 	console.log("jhwFavoritesUpdateGraph", window.jhwFavoritesConfig);
+	$('#favorite_stations i').each(function (i, element) {
+		element = $(element);
+		var contract_id = element.attr("contract_id");
+		var station_number = element.attr("station_number");
+		var label = "C" + contract_id + "-S" + station_number;
+		jhaGetSamples(
+			window.jhwFavoritesConfig.date,
+			contract_id,
+			station_number
+		)
+		.done(
+			function(data, textStatus, jqXHR) {
+				if (data.length > 0) {
+					jhwDrawFavoritesGraph(i, label, data);
+				}
+			}
+		)
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			console.log("jhwGetStations fail", jqXHR, textStatus, errorThrown);
+		});
+	});
 }
 
 function jhwFavoritesAddStation(table, contract_id, station_number, contract_text = null, station_text = null) {
