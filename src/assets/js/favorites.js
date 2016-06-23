@@ -111,7 +111,6 @@ function jhwSetupFavoritesGraph() {
 	// default selection
 	window.jhwFavoritesConfig = {
 		date: moment.utc().format("YYYY-MM-DD"),
-		preferred: Cookies.get('favorites_stations'),
 	}
 
 	// init availability graph config
@@ -202,10 +201,13 @@ function jhwSetupFavoritesGraph() {
 	});
 
 	// init favorite stations
-	if (window.jhwFavoritesConfig.preferred != null) {
+	var preferred = Cookies.get('favorites_stations');
+	if (preferred != null) {
 		jhwLoadFavoriteStations(
 			$('#favorite_stations'),
-			JSON.parse(window.jhwFavoritesConfig.preferred)
+			JSON.parse(preferred)
 		);
+		// request graph update
+		jhwFavoritesUpdateGraph();
 	}
 }
