@@ -229,6 +229,11 @@ function jhwSetupFavoritesGraph() {
 				// clear graph
 				window.jhwFavoritesGraphConfig.data.labels.length = 0;
 				window.jhwFavoritesGraphConfig.data.datasets.length = 0;
+				// limit display
+				if (date > moment.utc().format("YYYY-MM-DD")) {
+					window.jhwFavoritesGraph.update();
+					return;
+				}
 				// update graph
 				jhwFavoritesUpdateGraph();
 			}
