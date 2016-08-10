@@ -1,10 +1,10 @@
 function jhwSetInformations(element, data) {
 	var labels = {};
 	labels["dates_count"] = "Jours collectés";
-	labels["contract_count"] = "Contrats";
-	labels["station_count"] = "Stations";
-	labels["sample_count"] = "Échantillons";
-	labels["database_size"] = "Espace disque";
+	labels["contract_count"] = "Contrats gérés";
+	labels["station_count"] = "Stations connues";
+	labels["sample_count"] = "Échantillons en base";
+	labels["database_size"] = "Octets sur disque";
 	for (k in labels) {
 		sn = jhwNumberWithCommas(data[k])
 		element.append(
