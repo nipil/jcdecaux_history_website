@@ -37,3 +37,8 @@ function jhwGetHue(index) {
 		return jwhRandomInt(360);
 	}
 }
+
+// source: http://stackoverflow.com/a/2901298/5973357
+function jhwNumberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}

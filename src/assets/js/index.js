@@ -6,7 +6,12 @@ function jhwSetInformations(element, data) {
 	labels["sample_count"] = "Échantillons";
 	labels["database_size"] = "Espace disque";
 	for (k in labels) {
-		element.append($('<li>').append(labels[k] + ": " + data[k]));
+		sn = jhwNumberWithCommas(data[k])
+		element.append(
+			$('<li>').append(
+				labels[k] + ": " + sn
+			)
+		);
 	}
 }
 
