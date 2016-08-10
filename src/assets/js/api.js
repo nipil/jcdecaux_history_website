@@ -64,3 +64,10 @@ function jhaGetContracts() {
 		+ "/contracts"
 	);
 }
+
+function jhaGetInformation() {
+	return jhaLazyGet(
+		jhaGetApiUrl()
+		+ "/infos"
+	);
+}

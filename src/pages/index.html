@@ -1,9 +1,17 @@
 <div class="row">
+
+    <div class="small-6 columns">
 	<h3>Qu'est-ce que Vélib-stats ?</h3>
-	<p>Quand j'ai commencé à utiliser les vélibs à Paris, j'étais vraiment curieux. Je me demandais des trucs du style : combien y a t'il de vélibs en circulation ? Où étaient les stations les plus actives ? À quelle heure partir le mardi matin pour avoir un vélib ? Combien de trajets sont effectué chaque jour ?</p>
+	<p>Quand j'ai commencé à utiliser les vélibs à Paris, j'étais vraiment curieux. Je me demandais des trucs du style : combien y a t'il de vélibs en circulation ? Où étaient les stations les plus actives ? À quelle heure partir le mardi matin pour avoir un vélib ? Combien de trajets sont effectués chaque jour ?</p>
 	<p>J'ai construit ce site afin de répondre à ces questions.</p>
 	<p>Grâce à ça, j'ai pu apprendre qu'il y a environ 42700 vélos dans 28 villes du monde et que Paris représente près de la moitié, que je dois partir vers 7h50 le lundi, 8h00 le mardi, 8h15 le mercredi et le jeudi et 9h00 le vendredi pour toujours avoir un vélib au coin de la rue ...</p>
-	<p>Tout est librement consultable, n'hésitez pas à utiliser le menu en haut de la page pour accéder aux différentes statistiques !</p>
+	<p>Ce site, et le code source des outils, ainsi que les données, sont librement consultables, n'hésitez pas à utiliser le menu en haut de la page pour accéder aux différentes parties !</p>
+    </div>
+
+    <div class="small-6 columns">
+
+	<h3>Statistiques générales</h3>
+	<ul id="general_informations"></ul>
 
 	<h3>Quoi de neuf ?</h3>
 	<ul>
@@ -14,4 +22,11 @@
 		<li>2016-03-16: Mise en place des calculs de statistiques</li>
 		<li>2015-12-05: Début de la collecte d'infos</li>
 	</ul>
+
+    </div>
+
 </div>
+
+<script type="text/javascript" src="{{root}}assets/js/index.js"></script>
+
+<script>jhwSetupIndex();</script>
