@@ -22,10 +22,12 @@ function jhwSanitizeStation(station) {
 
 function jhwContractText(contract) {
 	return contract.contract_name
-		+ ' / '
+		+ ' ('
+		+ contract.country_code
+		+ ') - '
 		+ contract.commercial_name;
-
 }
+
 function jhwStationText(station) {
 	return station.station_name
 		+ ' / '
