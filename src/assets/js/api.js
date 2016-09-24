@@ -72,9 +72,9 @@ function jhaGetInformation() {
 	);
 }
 
-function jhaGetStats($type, $period, $scope) {
+function jhaGetStatsGlobal(type, period) {
 	return jhaLazyGet(
 		jhaGetApiUrl()
-		+ "/stats/" + $type + "/" + $period + "/" + $scope
+		+ "/stats/" + type + "/" + period + "/global"
 	);
 }

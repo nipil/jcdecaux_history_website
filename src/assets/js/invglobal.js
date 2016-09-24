@@ -61,10 +61,9 @@ function jhwDrawInventoryGlobalGraph(api_data) {
 
 function jhwInventoryGlobalGraphUpdate() {
 	// get
-	jhaGetStats(
+	jhaGetStatsGlobal(
 		"minmax",
-		"day",
-		"global"
+		"day"
 	)
 	.done(
 		function(data, textStatus, jqXHR) {
@@ -72,7 +71,7 @@ function jhwInventoryGlobalGraphUpdate() {
 		}
 	)
 	.fail(function(jqXHR, textStatus, errorThrown) {
-		console.log("jhaGetStats fail", jqXHR, textStatus, errorThrown);
+		console.log("jhaGetStatsGlobal fail", jqXHR, textStatus, errorThrown);
 	});
 }
 
