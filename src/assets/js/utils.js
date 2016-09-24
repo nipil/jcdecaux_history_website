@@ -15,7 +15,7 @@ function jhwEscapeHTML(html) {
     return document.createElement('div').appendChild(document.createTextNode(html)).parentNode.innerHTML;
 }
 
-function jwhRandomInt(maxval) {
+function jhwRandomInt(maxval) {
 	return Math.floor(maxval*Math.random());
 }
 
@@ -34,7 +34,7 @@ function jhwGetHue(index) {
 	if (index < jhw_preset_colors.length) {
 		return jhw_preset_colors[index];
 	} else {
-		return jwhRandomInt(360);
+		return jhwRandomInt(360);
 	}
 }
 
