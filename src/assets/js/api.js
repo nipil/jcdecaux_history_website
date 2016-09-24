@@ -85,3 +85,10 @@ function jhaGetStatsContract(type, period, contract_id) {
 		+ "/stats/" + type + "/" + period + "/contracts/" + contract_id
 	);
 }
+
+function jhaGetStatsRepartition() {
+	return jhaLazyGet(
+		jhaGetApiUrl()
+		+ "/stats/special/repartition/contracts"
+	);
+}
