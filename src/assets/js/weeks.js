@@ -138,10 +138,9 @@ function jhwSetupAvailabilityGraph() {
 			datasets: []
 		},
 		options: {
-			responsive: true,
-			// maintainAspectRatio: false,
 			title: {
-				display:false,
+				display: true,
+				text: 'Disponibilité pour le jour de la semaine',
 			},
 			scales: {
 				xAxes: [{

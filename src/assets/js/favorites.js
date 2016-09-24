@@ -176,10 +176,9 @@ function jhwSetupFavoritesGraph() {
 			datasets: []
 		},
 		options: {
-			responsive: true,
-			// maintainAspectRatio: false,
 			title: {
-				display:false,
+				display: true,
+				text: 'Disponibilité pour les stations favorites'
 			},
 			scales: {
 				xAxes: [{

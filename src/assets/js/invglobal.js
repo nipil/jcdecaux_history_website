@@ -86,8 +86,9 @@ function jhwSetupInventoryGlobalGraph() {
 			datasets: []
 		},
 		options: {
-			responsive: true,
-			// maintainAspectRatio: false,
+			hover: {
+				mode: 'label',
+			},
 			title: {
 				display:true,
 				text: 'Nombre total de vélos gérés par JCDecaux, tous contrats confondus'
@@ -118,7 +119,6 @@ function jhwSetupInventoryGlobalGraph() {
 
 	jhwInventoryGlobalGraphUpdate();
 }
-
 
 function jhwSetupInventoryGlobal() {
 	// init api
