@@ -1,0 +1,24 @@
+<style media="screen" type="text/css">
+.select2-container {
+margin-bottom: 1rem;
+}
+</style>
+
+<div class="row">
+	<div class="small-12 columns">
+		<label>Contrat
+			<select id="select_contract" style="width: 100%">
+			</select>
+		</label>
+	</div>
+</div>
+
+<div class="row">
+    <div class="small-12 columns">
+        <canvas id="graph_inventory_contracts"></canvas>
+    </div>
+</div>
+
+<script type="text/javascript" src="{{root}}assets/js/invcontracts.js"></script>
+
+<script>jhwSetupInventoryContracts();</script>

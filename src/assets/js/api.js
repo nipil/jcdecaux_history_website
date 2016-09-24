@@ -78,3 +78,10 @@ function jhaGetStatsGlobal(type, period) {
 		+ "/stats/" + type + "/" + period + "/global"
 	);
 }
+
+function jhaGetStatsContract(type, period, contract_id) {
+	return jhaLazyGet(
+		jhaGetApiUrl()
+		+ "/stats/" + type + "/" + period + "/contracts/" + contract_id
+	);
+}
