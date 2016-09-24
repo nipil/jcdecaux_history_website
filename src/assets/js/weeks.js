@@ -13,6 +13,7 @@ function jhwDrawAvailabilityGraphWeeks(graph_index, target_date, api_data) {
 		backgroundColor: jhwHslColor(hue, 0.3),
 		borderWidth: 1,
 		pointHitRadius: 5,
+		pointRadius: 0,
 	};
 	// populate dataset
 	for (var i = 0; i < api_data.length; i++) {

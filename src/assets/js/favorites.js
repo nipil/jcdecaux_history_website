@@ -11,6 +11,7 @@ function jhwDrawFavoritesGraph(graph_index, graph_label, api_data) {
 		backgroundColor: jhwHslColor(hue, 0.3),
 		borderWidth: 1,
 		pointHitRadius: 5,
+		pointRadius: 0,
 	};
 	// set table color
 	graph_label.attr("style", "background-color: " + jhwHslColor(hue, 0.3));
