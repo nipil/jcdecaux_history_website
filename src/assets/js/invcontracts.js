@@ -1,8 +1,9 @@
 
 function jhwInventoryContractsGraphUpdate(contract_id, api_data) {
+
 	// prepare dataset
-	var dataset = {
-		label: contract_id,
+	var dataset_min = {
+		label: "Minimum disponible",
 		data: [],
 		fill: false,
 		lineTension: 0,
@@ -12,20 +13,42 @@ function jhwInventoryContractsGraphUpdate(contract_id, api_data) {
 		pointHitRadius: 5,
 		pointRadius: 0,
 	};
+	var dataset_max = {
+		label: "Maximum disponible",
+		data: [],
+		fill: false,
+		lineTension: 0,
+		borderColor: jhwHslColor(jhwGetHue(1), 1),
+		backgroundColor: jhwHslColor(jhwGetHue(1), 0.3),
+		borderWidth: 1,
+		pointHitRadius: 5,
+		pointRadius: 0,
+	};
+	var dataset_circulation = {
+		label: "Maximum en circulation",
+		data: [],
+		fill: false,
+		lineTension: 0,
+		borderColor: jhwHslColor(jhwGetHue(2), 1),
+		backgroundColor: jhwHslColor(jhwGetHue(2), 0.3),
+		borderWidth: 1,
+		pointHitRadius: 5,
+		pointRadius: 0,
+	};
 
 	// populate dataset
 	for (var i = 0; i < api_data.length; i++) {
 		var ts_moment = moment.unix(api_data[i].start_of_day);
 		window.jhwInventoryContractsGraphConfig.data.labels.push(ts_moment.toDate());
-		dataset.data.push({
-			x: ts_moment.format('YYYY-MM-DD HH:mm'),
-			y: api_data[i].max_bikes
-		});
+		dataset_max.data.push(api_data[i].max_bikes);
+		dataset_min.data.push(api_data[i].min_bikes);
+		dataset_circulation.data.push(api_data[i].max_bikes - api_data[i].min_bikes);
 	}
 
 	// populate dataset
-	window.jhwInventoryContractsGraphConfig.data.datasets.push(dataset);
-	console.log(contract_id, dataset.data.length);
+	window.jhwInventoryContractsGraphConfig.data.datasets.push(dataset_min);
+	window.jhwInventoryContractsGraphConfig.data.datasets.push(dataset_max);
+	window.jhwInventoryContractsGraphConfig.data.datasets.push(dataset_circulation);
 
 	// update graph
 	window.jhwInventoryContractsGraph.update();
@@ -47,9 +70,11 @@ function jhwSetupInventoryContractsGraph() {
 			datasets: []
 		},
 		options: {
+			hover: {
+				mode: 'label',
+			},
 			title: {
-				display:true,
-				text: 'Nombre total maximum de vélos, par contrat JCDecaux'
+				display: false,
 			},
 			scales: {
 				xAxes: [{
@@ -97,7 +122,6 @@ function jhwSetupInventoryContracts() {
 		null,
 		function (contract_id, station_number) {
 			window.InventoryContractsConfig.contract_id = contract_id;
-			console.log(contract_id);
 			// reset graph data
 			window.jhwInventoryContractsGraphConfig.data.labels.length = 0;
 			window.jhwInventoryContractsGraphConfig.data.datasets.length = 0;
