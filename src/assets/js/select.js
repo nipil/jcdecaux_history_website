@@ -173,10 +173,28 @@ function jhwSelectStationsChange(event) {
 	return false;
 }
 
+function jhwCacheContracts(data) {
+	window.JcdStations = {}
+	window.JcdContracts = {}
+	for (i=0; i<data.length; i++) {
+		contract = data[i]
+		window.JcdContracts[contract.contract_id] = contract;
+	}
+}
+
+function jhwCacheStations(contract_id, data) {
+	window.JcdStations[contract_id] = {}
+	for (i=0; i<data.length; i++) {
+		station = data[i]
+		window.JcdStations[contract_id][station.station_number] = station;
+	}
+}
+
 function jhwFetchContracts(selectContract) {
 	// fetch and load contract data
 	jhaGetContracts()
 	.done(function(data, textStatus, jqXHR) {
+		jhwCacheContracts(data);
 		jhwSelectContractLoad(data, selectContract);
 		selectContract.change();
 	})
@@ -188,6 +206,8 @@ function jhwFetchContracts(selectContract) {
 function jhwFetchStations(selectStation, contract_id) {
 	jhaGetStations(contract_id)
 	.done(function(data, textStatus, jqXHR) {
+		jhwCacheStations(contract_id, data);
+		window.JcdStations[contract_id] = data;
 		jhwSelectStationsLoad(data, selectStation);
 		selectStation.change();
 	})
