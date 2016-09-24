@@ -71,3 +71,10 @@ function jhaGetInformation() {
 		+ "/infos"
 	);
 }
+
+function jhaGetStats($type, $period, $scope) {
+	return jhaLazyGet(
+		jhaGetApiUrl()
+		+ "/stats/" + $type + "/" + $period + "/" + $scope
+	);
+}
