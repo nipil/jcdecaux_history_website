@@ -1,6 +1,13 @@
 
 function jhwDrawActivityGlobalGraph(api_data) {
 
+	// reset graph data
+	window.jhwActivityGlobalGraphConfig.data.labels.length = 0
+	window.jhwActivityGlobalGraphConfig.data.datasets.length = 0
+
+	// time key
+	t = window.ActivityGlobalConfig["timename"]
+
 	// prepare dataset
 	var dataset = {
 		label: "Evénements",
@@ -16,7 +23,7 @@ function jhwDrawActivityGlobalGraph(api_data) {
 
 	// populate dataset
 	for (var i = 0; i < api_data.length; i++) {
-		var ts_moment = moment.unix(api_data[i].start_of_day);
+		var ts_moment = moment.unix(api_data[i][t]);
 		window.jhwActivityGlobalGraphConfig.data.labels.push(ts_moment.toDate());
 		dataset.data.push({
 			"x": ts_moment.format('YYYY-MM-DD HH:mm'),
@@ -27,24 +34,7 @@ function jhwDrawActivityGlobalGraph(api_data) {
 	// populate dataset
 	window.jhwActivityGlobalGraphConfig.data.datasets.push(dataset);
 
-	// update graph
-	window.jhwActivityGlobalGraph.update();
-}
-
-function jhwActivityGlobalGraphUpdate() {
-	// get
-	jhaGetStatsGlobal(
-		"activity",
-		"day"
-	)
-	.done(
-		function(data, textStatus, jqXHR) {
-			jhwDrawActivityGlobalGraph(data);
-		}
-	)
-	.fail(function(jqXHR, textStatus, errorThrown) {
-		console.log("jhaGetStatsGlobal fail", jqXHR, textStatus, errorThrown);
-	});
+	window.jhwActivityGlobalGraph.update()
 }
 
 function jhwSetupActivityGlobalGraph() {
@@ -93,13 +83,63 @@ function jhwSetupActivityGlobalGraph() {
 		$('#graph_activity_global'),
 		window.jhwActivityGlobalGraphConfig
 	);
+}
 
-	jhwActivityGlobalGraphUpdate();
+function jhwActivityGlobalGraphPeriodCallback() {
+
+	// time key
+	switch(window.ActivityGlobalConfig.period) {
+		case "day":
+		case "week":
+		case "month":
+		case "year":
+			window.ActivityGlobalConfig["timename"] = "start_of_" + window.ActivityGlobalConfig.period
+			break;
+	}
+
+	// cache
+	if (window.ActivityGlobalConfig.period in window.ActivityGlobalConfig.data) {
+		jhwDrawActivityGlobalGraph(window.ActivityGlobalConfig.data[window.ActivityGlobalConfig.period])
+		return
+	}
+
+	// get
+	jhaGetStatsGlobal(
+		"activity",
+		window.ActivityGlobalConfig.period
+	)
+	.done(
+		function(data, textStatus, jqXHR) {
+			window.ActivityGlobalConfig.data[window.ActivityGlobalConfig.period] = data
+			jhwDrawActivityGlobalGraph(data);
+		}
+	)
+	.fail(function(jqXHR, textStatus, errorThrown) {
+		console.log("jhaGetStatsGlobal fail", jqXHR, textStatus, errorThrown);
+	});
 }
 
 function jhwSetupActivityGlobal() {
 	// init api
 	jhaSetApiUrl();
 
+	window.ActivityGlobalConfig = {
+		"period": "day",
+		"data": {}
+	}
+
 	jhwSetupActivityGlobalGraph();
+
+	// link period buttons to date in config
+	var days = $("a[period]").each(function(i, e) {
+		$(e).click(
+			$(e).attr("period"),
+			function (event) {
+				window.ActivityGlobalConfig["period"] = event.data
+				jhwActivityGlobalGraphPeriodCallback()
+			}
+		);
+	});
+
+	jhwActivityGlobalGraphPeriodCallback()
 }
