@@ -21,6 +21,10 @@ function jhwDrawInventoryRepartitionGraph(api_data) {
 			}]
 		},
 		options: {
+			title: {
+				display: true,
+				text: "Nombre de vélos par contrat, sur les 10 derniers jours"
+			},
 			tooltips: {
 				callbacks: {
 					title: function (item, data) {
