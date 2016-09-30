@@ -70,6 +70,9 @@ function jhwSetupInventoryContractsGraph() {
 			datasets: []
 		},
 		options: {
+			legend: {
+				display: true
+			},
 			hover: {
 				mode: 'label',
 			},

@@ -138,6 +138,9 @@ function jhwSetupAvailabilityGraph() {
 			datasets: []
 		},
 		options: {
+			legend: {
+				display: true
+			},
 			title: {
 				display: true,
 				text: 'Disponibilité pour le jour de la semaine',

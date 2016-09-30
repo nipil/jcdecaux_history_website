@@ -85,6 +85,9 @@ function jhwSetupInventoryGlobalGraph() {
 			datasets: []
 		},
 		options: {
+			legend: {
+				display: true
+			},
 			hover: {
 				mode: 'label',
 			},
