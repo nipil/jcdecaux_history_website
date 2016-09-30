@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="small-12 columns">
+        <div class="small-12 large-6 columns">
+            <p>Ce service web utilise les blocs fonctionnels suivants :
+                <ul>
+                    <li><b>stockage</b> : les données sont stockées dans des bases <a href="https://www.sqlite.org/about.html">Sqlite3</a>. Il y a une base contenant les configurations, les derniers échantillons collectés, et derniers archivés. Il y a aussi une base pour les données de chaque jour. Tous les temps sont stockés en <a href="https://fr.wikipedia.org/wiki/Temps_universel_coordonn%C3%A9">UTC</a>, ce qui permet de gérer uniformément les contrats JCDecaux au Japon, en Russie, etc...</li>
+                    <li><b><a href="https://github.com/nipil/jcdecaux_fetch_store">jcdecaux_fetch_store</a></b> : un module en python, déclenché chaque minute par cron. A l'aide de l'api JCDecaux, il récupère les contrats et stations, puis une "photo" des données de stations de vélib. Il ne stocke que ce qui a changé depuis le dernier appel, pour économiser l'espace disque.</li>
+                    <li><b><a href="https://github.com/nipil/jcdecaux_stats_batch">jcdecaux_stats_batch</a></b> : un module en python, déclenché <i>à minuit UTC</i> par cron. Il calcule les statistiques sur les données récupérées pour établir l'activité, et les min/max globaux, par contrats, et par station</li>
+                    <li><b><a href="https://github.com/nipil/jcdecaux_history_api">jcdecaux_history_api</a></b> : fournit l'accès aux données au format JSON, au travers d'une API REST, implémenté en PHP avec le framework <a href="http://www.slimframework.com/">slim3</a>. Il utilise une base de donnée <a href="http://redis.io/">Redis</a> pour mettre en cache les requêtes récentes afin d'obtimiser les temps de réponse</li>
+                    <li><b><a href="https://github.com/nipil/jcdecaux_history_website">jcdecaux_history_website</a></b> : un site web statique + javascript, réalisé avec le framework &laquo; <a href="http://foundation.zurb.com/sites.html">Foundation 6 For Sites</a> &raquo;.</li>
+                </ul>
+            </p>
+            <p>Le tout est hébergé chez <a href="https://www.kimsufi.com">Kimsufi</a> sur un serveur KS-2G, qui sert le site web et l'api php via un reverse-proxy <a href="https://nginx.org/">nginx</a>, et exécute les traitements batch.</p>
+        </div>
+        <div class="small-12 large-6 columns">
+            <div class="text-center">
+                <img src="{{root}}assets/img/conception.svg" />
+            </div>
+        </div>
+    </div>
+</div>
