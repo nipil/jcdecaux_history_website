@@ -1,0 +1,41 @@
+<style media="screen" type="text/css">
+.select2-container {
+margin-bottom: 1rem;
+}
+</style>
+
+<div class="row">
+    <div class="small-4 columns">
+        <label>Contrat
+            <select id="select_contract" style="width: 100%">
+            </select>
+        </label>
+    </div>
+    <div class="small-8 columns">
+        <label>Station
+            <select id="select_station" style="width: 100%">
+            </select>
+        </label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="small-12 columns">
+        <div class="expanded button-group" >
+            <a class="button" period="day">Jour</a>
+            <a class="button" period="week">Semaine</a>
+            <a class="button" period="month">Mois</a>
+            <a class="button" period="year">Ann&eacute;e</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="small-12 columns">
+        <canvas id="graph_activity_stations"></canvas>
+    </div>
+</div>
+
+<script type="text/javascript" src="{{root}}assets/js/actstations.js"></script>
+
+<script>jhwSetupActivityStations();</script>
