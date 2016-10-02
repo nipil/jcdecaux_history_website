@@ -15,7 +15,6 @@
   <graph edgedefault="directed" id="G">
     <data key="d0"/>
     <node id="n0">
-      <data key="d5"/>
       <data key="d6">
         <y:SVGNode>
           <y:Geometry height="58.38100051879883" width="58.50005340576172" x="-5.642183565625999" y="155.47002510619325"/>
@@ -37,7 +36,6 @@
       </data>
     </node>
     <node id="n1">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.dataBase">
           <y:Geometry height="58.38100051879883" width="77.06535947712416" x="-14.92483660130722" y="347.73337856616854"/>
@@ -54,13 +52,12 @@
       </data>
     </node>
     <node id="n2">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="ShinyPlateNode">
           <y:Geometry height="73.88235294117646" width="108.01307189542479" x="-84.0326797385622" y="243.85102562499205"/>
           <y:Fill color="#FF9900" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="57.58984375" x="25.211614072712393" y="13.988051470588232">jcdecaux
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="57.58984375" x="25.211614072712393" y="13.988051470588204">jcdecaux
 history
 website<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -73,15 +70,14 @@ website<y:LabelModel>
       </data>
     </node>
     <node id="n3">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="ShinyPlateNode">
           <y:Geometry height="73.88235294117646" width="108.01307189542479" x="23.980392156862592" y="243.85102562499205"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="57.58984375" x="25.211614072712393" y="13.988051470588232">jcdecaux
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="57.58984375" x="25.211614072712393" y="13.988051470588204">jcdecaux
 history
-website<y:LabelModel>
+api<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -92,13 +88,12 @@ website<y:LabelModel>
       </data>
     </node>
     <node id="n4">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="ShinyPlateNode">
           <y:Geometry height="73.88235294117646" width="108.01307189542479" x="-84.0326797385622" y="436.11437908496737"/>
           <y:Fill color="#993300" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="57.58984375" x="25.211614072712393" y="13.988051470588289">jcdecaux
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="57.58984375" x="25.211614072712393" y="13.988051470588232">jcdecaux
 fetch
 store<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -111,13 +106,12 @@ store<y:LabelModel>
       </data>
     </node>
     <node id="n5">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="ShinyPlateNode">
           <y:Geometry height="73.88235294117646" width="108.01307189542479" x="23.980392156862592" y="436.11437908496737"/>
           <y:Fill color="#FF6600" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="57.58984375" x="25.211614072712393" y="13.988051470588289">jcdecaux
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="57.58984375" x="25.211614072712393" y="13.988051470588232">jcdecaux
 stats
 batch<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -130,13 +124,12 @@ batch<y:LabelModel>
       </data>
     </node>
     <node id="n6">
-      <data key="d5"/>
       <data key="d6">
         <y:GenericNode configuration="ShinyPlateNode">
           <y:Geometry height="73.88235294117646" width="108.01307189542479" x="-30.398692810457533" y="539.9967320261438"/>
           <y:Fill color="#808080" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="57.58984375" x="25.211614072712393" y="13.988051470588289">jcdecaux
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="57.58984375" x="25.211614072712393" y="13.988051470588175">jcdecaux
 history
 website<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -149,7 +142,6 @@ website<y:LabelModel>
       </data>
     </node>
     <edge id="e0" source="n4" target="n1">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -160,7 +152,6 @@ website<y:LabelModel>
       </data>
     </edge>
     <edge id="e1" source="n5" target="n1">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -171,7 +162,6 @@ website<y:LabelModel>
       </data>
     </edge>
     <edge id="e2" source="n0" target="n2">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -182,7 +172,6 @@ website<y:LabelModel>
       </data>
     </edge>
     <edge id="e3" source="n0" target="n3">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -193,7 +182,6 @@ website<y:LabelModel>
       </data>
     </edge>
     <edge id="e4" source="n6" target="n4">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -204,7 +192,6 @@ website<y:LabelModel>
       </data>
     </edge>
     <edge id="e5" source="n2" target="n1">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -215,7 +202,6 @@ website<y:LabelModel>
       </data>
     </edge>
     <edge id="e6" source="n3" target="n1">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
