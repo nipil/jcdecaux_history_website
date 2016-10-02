@@ -106,3 +106,10 @@ function jhaGetRankContracts(period) {
 		+ "/stats/ranking/" + period + "/contracts"
 	);
 }
+
+function jhaGetRankStation(period, contract_id) {
+	return jhaLazyGet(
+		jhaGetApiUrl()
+		+ "/stats/ranking/" + period + "/contracts/" + contract_id + "/stations"
+	);
+}
