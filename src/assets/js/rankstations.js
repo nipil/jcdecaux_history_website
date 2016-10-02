@@ -29,7 +29,7 @@ function jhwSetRankStationsTable(api_data) {
 	for (i=0; i<api_data.length; i++) {
 		var s = window.JcdStations[api_data[i].contract_id]
 		var n = api_data[i].station_number
-		var txt = "UNKNOWN"
+		var txt = "Inconnue (station fermée ?)"
 		if (n in s) {
 			txt = jhwStationText(s[n])
 		} else {
