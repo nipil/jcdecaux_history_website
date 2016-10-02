@@ -99,3 +99,10 @@ function jhaGetStatsRepartition() {
 		+ "/stats/special/repartition/contracts"
 	);
 }
+
+function jhaGetRankContracts(period) {
+	return jhaLazyGet(
+		jhaGetApiUrl()
+		+ "/stats/ranking/" + period + "/contracts"
+	);
+}
