@@ -1,13 +1,9 @@
 
-function jhwDrawInventoryRepartitionGraph(api_data) {
+function jhwDrawInventoryRepartitionGraph(api_data, sum_bikes) {
 	// sort descending
 	api_data.sort(function (a, b) {
 		return b.max_bikes - a.max_bikes
 	})
-
-	// compute sum
-	sum_bikes = api_data.reduce((p,c) => p + parseInt(c.max_bikes), 0)
-	if (sum_bikes < 1) sum_bikes = 1
 
 	// init graph config
 	window.jhwInventoryRepartitionGraphConfig = {
@@ -72,7 +68,24 @@ function jhwSetupInventoryRepartitionGraph() {
 	jhaGetStatsRepartition()
 	.done(
 		function(data, textStatus, jqXHR) {
-			jhwDrawInventoryRepartitionGraph(data);
+
+			// compute sum and ratio
+			sum_bikes = data.reduce((p,c) => p + parseInt(c.max_bikes), 0)
+			if (sum_bikes < 1) sum_bikes = 1
+
+			// build table data
+			window.jhwInventoryRepartitionConfig.table.clear()
+			for (i=0; i<data.length; i++) {
+				window.jhwInventoryRepartitionConfig.table.row.add([
+					data[i].max_bikes,
+					(Math.round(10000 * data[i].max_bikes / sum_bikes, 2) / 100) + "%",
+					jhwContractText(window.JcdContracts[data[i].contract_id])
+				])
+			}
+			window.jhwInventoryRepartitionConfig.table.draw()
+
+			// draw graph
+			jhwDrawInventoryRepartitionGraph(data, sum_bikes);
 		}
 	)
 	.fail(function(jqXHR, textStatus, errorThrown) {
@@ -83,6 +96,15 @@ function jhwSetupInventoryRepartitionGraph() {
 function jhwSetupInventoryRepartition() {
 	// init api
 	jhaSetApiUrl();
+
+
+	window.jhwInventoryRepartitionConfig = {
+		"table": $('#table_inventory_repartition').DataTable({
+			"paging": false,
+			"searching": false,
+			"order": [[ 1, "desc" ]]
+		})
+	}
 
 	jhaGetContracts()
 	.done(
