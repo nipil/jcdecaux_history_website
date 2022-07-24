@@ -1,3 +1,7 @@
+# OBSOLETE
+
+This repository has been archived and will not be updated anymore.
+
 # jcdecaux_history_website
 
 Source code of the [vélib-stats](https://nipil.org/velib-stats/) mini-site
